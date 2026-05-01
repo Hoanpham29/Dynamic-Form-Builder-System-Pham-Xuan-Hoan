@@ -17,7 +17,7 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(nullable = false)
-    private long id;
+    private Long id;
 
     @Column(nullable = false)
     private String firstName;
@@ -40,9 +40,6 @@ public class User implements UserDetails {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Submission> submissions;
-
-    @OneToMany(mappedBy = "createdBy")
-    private List<Form> forms;
 
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "user_authorities", joinColumns = @JoinColumn(name = "user_id"))
@@ -109,14 +106,6 @@ public class User implements UserDetails {
 
     public void setSubmissions(List<Submission> submissions) {
         this.submissions = submissions;
-    }
-
-    public List<Form> getForms() {
-        return forms;
-    }
-
-    public void setForms(List<Form> forms) {
-        this.forms = forms;
     }
 
     public void setAuthorities(List<Authority> authorities) {

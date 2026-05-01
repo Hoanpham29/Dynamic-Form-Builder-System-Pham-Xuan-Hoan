@@ -13,7 +13,7 @@ public class Form {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(nullable = false)
-    private long id;
+    private Long id;
 
     @Column(nullable = false)
     private String title;
@@ -25,7 +25,7 @@ public class Form {
     private String status;
 
     @Column(name = "display_order")
-    private int displayOrder;
+    private Integer displayOrder;
 
     @CreationTimestamp
     @Column(updatable = false, name = "created_at")
@@ -40,14 +40,10 @@ public class Form {
     @OneToMany(mappedBy = "form")
     private List<Submission> submissions;
 
-    @ManyToOne
-    @JoinColumn(name = "created_by")
-    private User createdBy;
-
     public Form() {
     }
 
-    public Form(String title, String description, String status, int displayOrder, Date createdAt, Date updatedAt, List<Field> fields, List<Submission> submissions, User createdBy) {
+    public Form(String title, String description, String status, Integer displayOrder, Date createdAt, Date updatedAt, List<Field> fields, List<Submission> submissions) {
         this.title = title;
         this.description = description;
         this.status = status;
@@ -56,7 +52,6 @@ public class Form {
         this.updatedAt = updatedAt;
         this.fields = fields;
         this.submissions = submissions;
-        this.createdBy = createdBy;
     }
 
     public long getId() {
@@ -91,11 +86,11 @@ public class Form {
         this.status = status;
     }
 
-    public int getDisplayOrder() {
+    public Integer getDisplayOrder() {
         return displayOrder;
     }
 
-    public void setDisplayOrder(int displayOrder) {
+    public void setDisplayOrder(Integer displayOrder) {
         this.displayOrder = displayOrder;
     }
 
@@ -129,13 +124,5 @@ public class Form {
 
     public void setSubmissions(List<Submission> submissions) {
         this.submissions = submissions;
-    }
-
-    public User getCreatedBy() {
-        return createdBy;
-    }
-
-    public void setCreatedBy(User createdBy) {
-        this.createdBy = createdBy;
     }
 }

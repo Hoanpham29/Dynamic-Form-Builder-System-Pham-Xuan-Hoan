@@ -13,7 +13,7 @@ public class Field {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(nullable = false)
-    private long id;
+    private Long id;
 
     @Column(nullable = false)
     private String label;
@@ -22,7 +22,7 @@ public class Field {
     private String type;
 
     @Column(name = "display_order")
-    private int displayOrder;
+    private Integer displayOrder;
 
     @Column(nullable = false)
     private boolean required;
@@ -44,7 +44,7 @@ public class Field {
     public Field() {
     }
 
-    public Field(String label, String type, int displayOrder, boolean required, Date createdAt, Date updatedAt, Form form, List<FieldOption> options) {
+    public Field(String label, String type, Integer displayOrder, boolean required, Date createdAt, Date updatedAt, Form form, List<FieldOption> options) {
         this.label = label;
         this.type = type;
         this.displayOrder = displayOrder;
@@ -79,15 +79,15 @@ public class Field {
         this.type = type;
     }
 
-    public int getDisplayOrder() {
+    public Integer getDisplayOrder() {
         return displayOrder;
     }
 
-    public void setDisplayOrder(int displayOrder) {
+    public void setDisplayOrder(Integer displayOrder) {
         this.displayOrder = displayOrder;
     }
 
-    public boolean isRequired() {
+    public boolean getRequired() {
         return required;
     }
 

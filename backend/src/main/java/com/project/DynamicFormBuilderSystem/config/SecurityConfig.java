@@ -62,7 +62,8 @@ public class SecurityConfig {
                         .requestMatchers("/api/auth/**","/swagger-ui/**", "/v3/api-docs/**",
                                 "/swagger-resources/**", "/webjars/**","/docs").permitAll()
 
-                        .requestMatchers("/api/admin/**").hasRole("ADMIN")
+                        .requestMatchers("/api/admin/forms/*/fields/**").hasRole("ADMIN")
+                        .requestMatchers("/api/admin/forms/**").hasRole("ADMIN")
                         .anyRequest().authenticated()
         );
         http.csrf(csrf -> csrf.disable());
