@@ -1,6 +1,7 @@
 package com.project.DynamicFormBuilderSystem.controller;
 
 import com.project.DynamicFormBuilderSystem.request.PasswordUpdateRequest;
+import com.project.DynamicFormBuilderSystem.response.UserResponse;
 import com.project.DynamicFormBuilderSystem.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -31,5 +32,12 @@ public class UserController {
     @DeleteMapping
     public void deleteUser(){
         userService.deleteUser();
+    }
+
+    @Operation(summary = "Get user information", description = "Get current login user information")
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping
+    public UserResponse getUserInfo(){
+        return userService.getUserInfo();
     }
 }

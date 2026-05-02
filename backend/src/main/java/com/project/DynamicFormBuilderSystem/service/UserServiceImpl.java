@@ -1,8 +1,10 @@
 package com.project.DynamicFormBuilderSystem.service;
 
+import com.project.DynamicFormBuilderSystem.entity.Authority;
 import com.project.DynamicFormBuilderSystem.entity.User;
 import com.project.DynamicFormBuilderSystem.repository.UserRepository;
 import com.project.DynamicFormBuilderSystem.request.PasswordUpdateRequest;
+import com.project.DynamicFormBuilderSystem.response.UserResponse;
 import com.project.DynamicFormBuilderSystem.util.FindAuthenticatedUser;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -21,6 +23,18 @@ public class UserServiceImpl implements UserService{
         this.userRepository = userRepository;
         this.findAuthenticatedUser = findAuthenticatedUser;
         this.passwordEncoder = passwordEncoder;
+    }
+
+    @Override
+    public UserResponse getUserInfo(){
+        User user = findAuthenticatedUser.getAuthenticatedUser();
+
+        return new UserResponse(
+                user.getId(),
+                user.getFirstName() + " " + user.getLastName(),
+                user.getEmail(),
+                user.getAuthorities().stream().map(auth -> (Authority) auth).toList()
+        );
     }
 
     @Override
