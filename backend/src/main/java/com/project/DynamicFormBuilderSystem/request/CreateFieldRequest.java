@@ -20,9 +20,9 @@ public class CreateFieldRequest {
 
     private Boolean required;
 
-    private List<String> options;
+    private List<OptionRequest> options;
 
-    public CreateFieldRequest(String label, String type, Integer displayOrder, Boolean required, List<String> options) {
+    public CreateFieldRequest(String label, String type, Integer displayOrder, Boolean required, List<OptionRequest> options) {
         this.label = label;
         this.type = type;
         this.displayOrder = displayOrder;
@@ -62,11 +62,11 @@ public class CreateFieldRequest {
         this.required = required;
     }
 
-    public List<String> getOptions() {
+    public List<OptionRequest> getOptions() {
         return options;
     }
 
-    public void setOptions(List<String> options) {
+    public void setOptions(List<OptionRequest> options) {
         this.options = options;
     }
 }

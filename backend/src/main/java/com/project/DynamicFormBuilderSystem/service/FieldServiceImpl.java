@@ -42,24 +42,24 @@ public class FieldServiceImpl implements FieldService {
 
     @Transactional
     @Override
-    public FieldResponse createNewField(Long formId, CreateFieldRequest req) {
+    public FieldResponse createNewField(Long formId, CreateFieldRequest createFieldRequest) {
 
         Form form = formRepository.findById(formId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
         Field field = new Field();
-        field.setLabel(req.getLabel());
-        field.setType(req.getType());
-        field.setDisplayOrder(req.getDisplayOrder());
-        field.setRequired(req.getRequired());
+        field.setLabel(createFieldRequest.getLabel());
+        field.setType(createFieldRequest.getType());
+        field.setDisplayOrder(createFieldRequest.getDisplayOrder());
+        field.setRequired(createFieldRequest.getRequired());
         field.setForm(form);
 
-        if ("select".equalsIgnoreCase(req.getType())) {
+        if ("select".equalsIgnoreCase(createFieldRequest.getType())) {
 
-            List<FieldOption> options = req.getOptions().stream()
+            List<FieldOption> options = createFieldRequest.getOptions().stream()
                     .map(opt -> {
                         FieldOption fo = new FieldOption();
-                        fo.setValue(opt);
+                        fo.setValue(opt.getValue());
                         fo.setField(field);
                         return fo;
                     })
@@ -79,7 +79,7 @@ public class FieldServiceImpl implements FieldService {
 
     @Transactional
     @Override
-    public FieldResponse updateField(Long formId, Long id, UpdateFieldRequest req) {
+    public FieldResponse updateField(Long formId, Long id, UpdateFieldRequest updateFieldRequest) {
 
         Field field = fieldRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
@@ -88,18 +88,18 @@ public class FieldServiceImpl implements FieldService {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
 
-        if (req.getLabel() != null) field.setLabel(req.getLabel());
-        if (req.getDisplayOrder() != null) field.setDisplayOrder(req.getDisplayOrder());
-        if (req.getRequired() != null) field.setRequired(req.getRequired());
+        if (updateFieldRequest.getLabel() != null) field.setLabel(updateFieldRequest.getLabel());
+        if (updateFieldRequest.getDisplayOrder() != null) field.setDisplayOrder(updateFieldRequest.getDisplayOrder());
+        if (updateFieldRequest.getRequired() != null) field.setRequired(updateFieldRequest.getRequired());
 
-        String newType = req.getType() != null ? req.getType() : field.getType();
+        String newType = updateFieldRequest.getType() != null ? updateFieldRequest.getType() : field.getType();
         field.setType(newType);
 
         if ("select".equalsIgnoreCase(newType)) {
 
             field.getOptions().clear();
 
-            List<FieldOption> newOptions = req.getOptions().stream()
+            List<FieldOption> newOptions = updateFieldRequest.getOptions().stream()
                     .map(opt -> {
                         FieldOption fo = new FieldOption();
                         fo.setValue(opt);
@@ -138,32 +138,5 @@ public class FieldServiceImpl implements FieldService {
         }
 
         fieldRepository.delete(field);
-    }
-
-    @Transactional
-    public FormResponse getFormDetail(Long formId) {
-
-        Form form = formRepository.findById(formId)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-
-        List<Field> fields = fieldRepository.findByFormId(formId);
-
-        List<FieldResponse> fieldResponses = fields.stream()
-                .map(field -> {
-
-                    List<String> options = null;
-
-                    if ("select".equalsIgnoreCase(field.getType())) {
-                        options = fieldOptionRepository.findByFieldId(field.getId())
-                                .stream()
-                                .map(FieldOption::getValue)
-                                .toList();
-                    }
-
-                    return fieldMapper.toResponse(field, options);
-                })
-                .toList();
-
-        return formMapper.toResponse(form, fieldResponses);
     }
 }

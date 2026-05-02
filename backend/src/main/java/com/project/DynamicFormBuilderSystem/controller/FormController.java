@@ -1,6 +1,7 @@
 package com.project.DynamicFormBuilderSystem.controller;
 
 import com.project.DynamicFormBuilderSystem.request.CreateFormRequest;
+import com.project.DynamicFormBuilderSystem.request.UpdateFormRequest;
 import com.project.DynamicFormBuilderSystem.response.FormResponse;
 import com.project.DynamicFormBuilderSystem.service.FormService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -42,5 +43,20 @@ public class FormController {
     @PostMapping
     public FormResponse createForm(@Valid @RequestBody CreateFormRequest createFormRequest){
         return formService.createNewForm(createFormRequest);
+    }
+
+    @Operation(summary = "Update form", description = "Update form by ID")
+    @ResponseStatus(HttpStatus.OK)
+    @PutMapping("/{id}")
+    public FormResponse updateForm(@Min(1) @PathVariable Long id,
+                                   @Valid @ RequestBody UpdateFormRequest updateFormRequest) {
+        return formService.updateForm(id, updateFormRequest);
+    }
+
+    @Operation(summary = "Delete form", description = "Delete form by ID")
+    @ResponseStatus(HttpStatus.OK)
+    @DeleteMapping("/{id}")
+    public void deleteForm(@Min(1) @PathVariable Long id){
+        formService.deleteForm(id);
     }
 }

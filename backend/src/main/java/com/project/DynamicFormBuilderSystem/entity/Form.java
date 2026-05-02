@@ -28,7 +28,7 @@ public class Form {
     private Integer displayOrder;
 
     @CreationTimestamp
-    @Column(updatable = false, name = "created_at")
+    @Column(name = "created_at")
     private Date createdAt;
 
     @Column(name = "updated_at")

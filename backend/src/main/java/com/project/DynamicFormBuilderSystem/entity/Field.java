@@ -28,10 +28,10 @@ public class Field {
     private boolean required;
 
     @CreationTimestamp
-    @Column(nullable = false, name = "created_at")
+    @Column(name = "created_at")
     private Date createdAt;
 
-    @Column(nullable = false, name = "updated_at")
+    @Column(name = "updated_at")
     private Date updatedAt;
 
     @ManyToOne

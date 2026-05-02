@@ -9,6 +9,7 @@ import com.project.DynamicFormBuilderSystem.repository.FieldOptionRepository;
 import com.project.DynamicFormBuilderSystem.repository.FieldRepository;
 import com.project.DynamicFormBuilderSystem.repository.FormRepository;
 import com.project.DynamicFormBuilderSystem.request.CreateFormRequest;
+import com.project.DynamicFormBuilderSystem.request.UpdateFormRequest;
 import com.project.DynamicFormBuilderSystem.response.FieldResponse;
 import com.project.DynamicFormBuilderSystem.response.FormResponse;
 import org.springframework.http.HttpStatus;
@@ -17,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class FormServiceImpl implements FormService {
@@ -114,12 +116,42 @@ public class FormServiceImpl implements FormService {
     }
 
     @Override
-    public FormResponse updateForm(long id) {
-        throw new UnsupportedOperationException("Not implemented yet");
+    @Transactional
+    public FormResponse updateForm(long id, UpdateFormRequest request) {
+
+        Form form = formRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(
+                        HttpStatus.NOT_FOUND, "Form not found"));
+
+        if (request.getTitle() != null) {
+            form.setTitle(request.getTitle());
+        }
+
+        if (request.getDescription() != null) {
+            form.setDescription(request.getDescription());
+        }
+
+        if (request.getStatus() != null) {
+            form.setStatus(request.getStatus());
+        }
+
+        if (request.getDisplayOrder() != null) {
+            form.setDisplayOrder(request.getDisplayOrder());
+        }
+
+        Form updated = formRepository.save(form);
+
+        return formMapper.toResponse(updated, null);
     }
 
     @Override
+    @Transactional
     public void deleteForm(long id) {
-        formRepository.deleteById(id);
+        Optional<Form> form = formRepository.findById(id);
+
+        if(form.isEmpty())
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"Form not found");
+
+        formRepository.delete(form.get());
     }
 }

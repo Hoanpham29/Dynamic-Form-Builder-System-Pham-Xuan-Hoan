@@ -1,9 +1,6 @@
 package com.project.DynamicFormBuilderSystem.request;
 
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.*;
 
 import java.util.List;
 
@@ -16,10 +13,9 @@ public class UpdateFieldRequest {
     @Pattern(regexp = "text|number|date|color|select")
     private String type;
 
-    @NotEmpty
+    @NotNull
     private Integer displayOrder;
 
-    @NotEmpty
     private Boolean required;
 
     private List<String> options;
