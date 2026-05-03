@@ -44,7 +44,7 @@ export const LoginPage = () => {
     return (
         <div className="d-flex justify-content-center align-items-center vh-100 bg-secondary bg-opacity-10">
             <div className="card shadow p-4" style={{ width: "400px" }}>
-                <h3 className="text-center">Login</h3>
+                <h3 className="text-center">Sign In</h3>
 
                 {error && (
                     <div className="alert alert-danger">

@@ -13,7 +13,7 @@ import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/admin/forms/{formId}/fields")
+@RequestMapping("/api/forms/{formId}/fields")
 @Tag(name = "Admin Field REST API Endpoints", description = "Operations for admin's managing use fields")
 public class FieldController {
 

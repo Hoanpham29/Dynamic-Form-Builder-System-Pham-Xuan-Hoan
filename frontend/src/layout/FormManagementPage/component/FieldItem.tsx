@@ -22,7 +22,7 @@ export const FieldItem: React.FC<{
         const token = localStorage.getItem("token");
 
         const res = await fetch(
-            `http://localhost:8080/api/admin/forms/${formId}/fields/${field.id}`,
+            `http://localhost:8080/api/forms/${formId}/fields/${field.id}`,
             {
                 method: "PUT",
                 headers: {
@@ -41,7 +41,7 @@ export const FieldItem: React.FC<{
         const token = localStorage.getItem("token");
 
         await fetch(
-            `http://localhost:8080/api/admin/forms/${formId}/fields/${field.id}`,
+            `http://localhost:8080/api/forms/${formId}/fields/${field.id}`,
             {
                 method: "DELETE",
                 headers: {

@@ -20,7 +20,7 @@ export const FormItem: React.FC<{
     const handleDelete = async () => {
         if (!token) return;
 
-        await fetch(`http://localhost:8080/api/admin/forms/${form.id}`, {
+        await fetch(`http://localhost:8080/api/forms/${form.id}`, {
             method: "DELETE",
             headers: {
                 "Authorization": `Bearer ${token}`
@@ -34,7 +34,7 @@ export const FormItem: React.FC<{
         if (!token) return;
 
         const res = await fetch(
-            `http://localhost:8080/api/admin/forms/${form.id}`,
+            `http://localhost:8080/api/forms/${form.id}`,
             {
                 method: "PUT",
                 headers: {
@@ -64,7 +64,7 @@ export const FormItem: React.FC<{
         };
 
         const res = await fetch(
-            `http://localhost:8080/api/admin/forms/${form.id}/fields`,
+            `http://localhost:8080/api/forms/${form.id}/fields`,
             {
                 method: "POST",
                 headers: {
@@ -86,7 +86,7 @@ export const FormItem: React.FC<{
         if (!token) return;
 
         const res = await fetch(
-            `http://localhost:8080/api/admin/forms/${form.id}/fields/${field.id}`,
+            `http://localhost:8080/api/forms/${form.id}/fields/${field.id}`,
             {
                 method: "PUT",
                 headers: {
@@ -110,7 +110,7 @@ export const FormItem: React.FC<{
         if (!token) return;
 
         await fetch(
-            `http://localhost:8080/api/admin/forms/${form.id}/fields/${id}`,
+            `http://localhost:8080/api/forms/${form.id}/fields/${id}`,
             {
                 method: "DELETE",
                 headers: {
@@ -132,7 +132,7 @@ export const FormItem: React.FC<{
 
         try {
             const res = await fetch(
-                `http://localhost:8080/api/admin/forms/${form.id}`,
+                `http://localhost:8080/api/forms/${form.id}`,
                 {
                     method: "PUT",
                     headers: {

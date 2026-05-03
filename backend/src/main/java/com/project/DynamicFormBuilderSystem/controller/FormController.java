@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/admin/forms")
+@RequestMapping("/api/forms")
 @Tag(name = "Admin Form REST API Endpoints", description = "Operations for admin's managing use forms")
 public class FormController {
 

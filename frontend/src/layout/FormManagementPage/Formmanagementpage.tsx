@@ -26,7 +26,7 @@ export const FormManagementPage = () => {
             }
 
             try {
-                const response = await fetch("http://localhost:8080/api/admin/forms", {
+                const response = await fetch("http://localhost:8080/api/forms", {
                     headers: {
                         "Authorization": `Bearer ${token}`
                     }

@@ -10,7 +10,7 @@ export const NewForm = ({ addForm, onSuccess }: any) => {
 
         const token = localStorage.getItem("token");
 
-        const res = await fetch("http://localhost:8080/api/admin/forms", {
+        const res = await fetch("http://localhost:8080/api/forms", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
