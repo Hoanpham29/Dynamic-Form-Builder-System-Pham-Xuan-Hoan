@@ -8,6 +8,7 @@ import com.project.DynamicFormBuilderSystem.mapper.FormMapper;
 import com.project.DynamicFormBuilderSystem.repository.FieldOptionRepository;
 import com.project.DynamicFormBuilderSystem.repository.FieldRepository;
 import com.project.DynamicFormBuilderSystem.repository.FormRepository;
+import com.project.DynamicFormBuilderSystem.repository.SubmissionRepository;
 import com.project.DynamicFormBuilderSystem.request.CreateFormRequest;
 import com.project.DynamicFormBuilderSystem.request.UpdateFormRequest;
 import com.project.DynamicFormBuilderSystem.response.FieldResponse;
@@ -28,17 +29,15 @@ public class FormServiceImpl implements FormService {
     private final FieldOptionRepository fieldOptionRepository;
     private final FormMapper formMapper;
     private final FieldMapper fieldMapper;
+    private final SubmissionRepository submissionRepository;
 
-    public FormServiceImpl(FormRepository formRepository,
-                           FieldRepository fieldRepository,
-                           FieldOptionRepository fieldOptionRepository,
-                           FormMapper formMapper,
-                           FieldMapper fieldMapper) {
+    public FormServiceImpl(FormRepository formRepository, FieldRepository fieldRepository, FieldOptionRepository fieldOptionRepository, FormMapper formMapper, FieldMapper fieldMapper, SubmissionRepository submissionRepository) {
         this.formRepository = formRepository;
         this.fieldRepository = fieldRepository;
         this.fieldOptionRepository = fieldOptionRepository;
         this.formMapper = formMapper;
         this.fieldMapper = fieldMapper;
+        this.submissionRepository = submissionRepository;
     }
 
     @Override
@@ -147,11 +146,14 @@ public class FormServiceImpl implements FormService {
     @Override
     @Transactional
     public void deleteForm(long id) {
-        Optional<Form> form = formRepository.findById(id);
 
-        if(form.isEmpty())
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"Form not found");
+        if (submissionRepository.existsByFormId(id)) {
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST,
+                    "Cannot delete form with submissions"
+            );
+        }
 
-        formRepository.delete(form.get());
+        formRepository.deleteById(id);
     }
 }

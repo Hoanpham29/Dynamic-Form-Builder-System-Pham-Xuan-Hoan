@@ -18,4 +18,10 @@ public interface SubmissionRepository extends JpaRepository<Submission,Long> {
     """)
     List<Submission> findByUserWithDetails(@Param("user") User user);
 
+    @Query("""
+    SELECT CASE WHEN COUNT(s) > 0 THEN true ELSE false END
+    FROM Submission s
+    WHERE s.form.id = :formId
+""")
+    boolean existsByFormId(@Param("formId") Long formId);
 }

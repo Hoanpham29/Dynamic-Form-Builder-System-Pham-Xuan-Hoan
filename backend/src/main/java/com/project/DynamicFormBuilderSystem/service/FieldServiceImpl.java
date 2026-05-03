@@ -4,14 +4,12 @@ import com.project.DynamicFormBuilderSystem.entity.Field;
 import com.project.DynamicFormBuilderSystem.entity.FieldOption;
 import com.project.DynamicFormBuilderSystem.entity.Form;
 import com.project.DynamicFormBuilderSystem.mapper.FieldMapper;
-import com.project.DynamicFormBuilderSystem.mapper.FormMapper;
 import com.project.DynamicFormBuilderSystem.repository.FieldOptionRepository;
 import com.project.DynamicFormBuilderSystem.repository.FieldRepository;
 import com.project.DynamicFormBuilderSystem.repository.FormRepository;
 import com.project.DynamicFormBuilderSystem.request.CreateFieldRequest;
 import com.project.DynamicFormBuilderSystem.request.UpdateFieldRequest;
 import com.project.DynamicFormBuilderSystem.response.FieldResponse;
-import com.project.DynamicFormBuilderSystem.response.FormResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,18 +24,12 @@ public class FieldServiceImpl implements FieldService {
     private final FormRepository formRepository;
     private final FieldOptionRepository fieldOptionRepository;
     private final FieldMapper fieldMapper;
-    private final FormMapper formMapper;
 
-    public FieldServiceImpl(FieldRepository fieldRepository,
-                            FormRepository formRepository,
-                            FieldOptionRepository fieldOptionRepository,
-                            FieldMapper fieldMapper,
-                            FormMapper formMapper) {
+    public FieldServiceImpl(FieldRepository fieldRepository, FormRepository formRepository, FieldOptionRepository fieldOptionRepository, FieldMapper fieldMapper) {
         this.fieldRepository = fieldRepository;
         this.formRepository = formRepository;
         this.fieldOptionRepository = fieldOptionRepository;
         this.fieldMapper = fieldMapper;
-        this.formMapper = formMapper;
     }
 
     @Transactional

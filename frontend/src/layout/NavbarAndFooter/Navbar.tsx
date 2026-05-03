@@ -1,4 +1,4 @@
-import { Link, useHistory } from "react-router-dom";
+import { Link, NavLink, useHistory } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { UserModel } from "../../models/UserModel";
 
@@ -31,7 +31,7 @@ export const Navbar = () => {
         if (response.status === 401) {
           localStorage.removeItem("token");
           setUsers(null);
-          history.push("/login");
+
           return;
         }
 
@@ -67,8 +67,41 @@ export const Navbar = () => {
       <div className='container-fluid'>
 
         <span className='fw-semibold' style={{ fontSize: '24px' }}>
-          DFBS - Phạm Xuân Hoàn
+          DFBS
         </span>
+
+        <div className="d-flex gap-3 mx-auto">
+
+          <NavLink
+            exact
+            className="nav-link"
+            activeClassName="border-bottom border-primary"
+            to="/home"
+          >
+            Home
+          </NavLink>
+
+          <NavLink
+            className="nav-link"
+            activeClassName="border-bottom border-success"
+            to="/submitted"
+          >
+            Submitted
+          </NavLink>
+
+          {users?.authorities?.some(
+            (a: any) => a.authority === "ROLE_ADMIN"
+          ) && (
+              <NavLink
+                className="nav-link"
+                activeClassName="border-bottom border-warning"
+                to="/admin"
+              >
+                Form Management
+              </NavLink>
+            )}
+
+        </div>
 
         <div className="dropdown">
 

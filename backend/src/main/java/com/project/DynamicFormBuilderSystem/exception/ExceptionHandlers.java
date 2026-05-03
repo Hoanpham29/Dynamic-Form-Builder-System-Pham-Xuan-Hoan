@@ -9,17 +9,21 @@ import org.springframework.web.server.ResponseStatusException;
 @ControllerAdvice
 public class ExceptionHandlers {
 
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<ExceptionResponses> handleException(ResponseStatusException exc){
-        return buildResponseEntity(exc, HttpStatus.valueOf(exc.getStatusCode().value()));
+    @ExceptionHandler(ResponseStatusException.class)
+    public ResponseEntity<ExceptionResponses> handleResponseStatus(ResponseStatusException ex){
+        return buildResponseEntity(ex, HttpStatus.valueOf(ex.getStatusCode().value()));
     }
 
-    private ResponseEntity<ExceptionResponses> buildResponseEntity(Exception exc, HttpStatus status){
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<ExceptionResponses> handleException(Exception ex){
+        return buildResponseEntity(ex, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    private ResponseEntity<ExceptionResponses> buildResponseEntity(Exception ex, HttpStatus status){
         ExceptionResponses error = new ExceptionResponses();
         error.setStatus(status.value());
-        error.setMessage(exc.getMessage());
+        error.setMessage(ex.getMessage());
         error.setTimeStamp(System.currentTimeMillis());
         return new ResponseEntity<>(error, status);
     }
-
 }

@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { FormModel } from "../../models/FormModel";
 import { SpinnerLoading } from "../Utils/SpinnerLoading";
 import { useHistory } from "react-router-dom";
-import { NewTodoForm } from "./components/NewTodoForm";
 import { FormItem } from "./components/FormItem";
 
 export const HomePage = () => {
