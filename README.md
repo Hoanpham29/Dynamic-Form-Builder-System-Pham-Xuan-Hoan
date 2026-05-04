@@ -3,10 +3,10 @@
 ## Giới thiệu
 
 Đây là một ứng dụng điền form được xây dựng bằng:
-
-Frontend: React
-Backend: Spring Boot
-Authentication: JWT (JSON Web Token)
+ 
+ - Frontend: React
+ - Backend: Spring Boot
+ - Authentication: JWT (JSON Web Token)
 
 Dự án được thực hiện bởi Phạm Xuân Hoàn.
 
@@ -82,6 +82,11 @@ Dự án được thực hiện bởi Phạm Xuân Hoàn.
 - DELETE /api/forms/:id/fields/:fid
 
 ## Demo
+
+### Database diagram
+<p align="left">
+  <img src="screenshots/dynamic-form-system-diagram.png" width="30%" />
+</p>
 
 ### Swagger UI
 
